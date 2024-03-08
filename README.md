@@ -19,7 +19,7 @@ With the assumption you're already running the sdr-enthusiasts stack, the `build
 
 ## Todo
 
-- fr24 hasn't been ported over yet. The current template utilizes the sdr-enthusiasts container but I hope to minimize this container as well.
+- 978 isn't set up just yet however the intent is to support that SOON.  
 - Documentation is never enough.
 
 ## Contributing
