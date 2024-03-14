@@ -4,14 +4,14 @@ services:
     container_name: ultrafeeder
     hostname: ultrafeeder
     restart: unless-stopped
-    depends_on:
-      - dump978
+    volumes:
+      - readsb:/run/readsb
     # ports:
     #   - 30006:30006 # BeastReduce for local polling
     #   - 30152:30152 # api port
     devices:
       - "/dev/bus/usb:/dev/bus/usb:rwm"
-    command: "--device-type=rtlsdr --gain=ADSB_SDR_GAIN --device=ADSB_SDR_SERIAL --ppm=ADSB_SDR_PPM --lat=FEEDER_LAT --lon=FEEDER_LONG --quiet --db-file=/usr/local/share/tar1090/aircraft.csv.gz --db-file-lt --net --net-heartbeat=35 --net-bi-port=30004,30104 --net-bo-port=30005 --net-beast-reduce-out-port=30006 --net-beast-reduce-interval=0.5 --net-api-port 30152 --net-connector=feed.adsb.fi,30004,beast_reduce_plus_out --net-connector=in.adsb.lol,30004,beast_reduce_plus_out --net-connector=feed.airplanes.live,30004,beast_reduce_plus_out --net-connector=feed.planespotters.net,30004,beast_reduce_plus_out --net-connector=feed.theairtraffic.com,30004,beast_reduce_plus_out --net-connector=data.avdelphi.com,24999,beast_reduce_plus_out --net-connector=skyfeed.hpradar.com,30004,beast_reduce_plus_out --net-connector=dati.flyitalyadsb.com,4905,beast_reduce_plus_out --net-connector=dump978,30978,uat_in"
+    command: "--device-type=rtlsdr --gain=ADSB_SDR_GAIN --device=ADSB_SDR_SERIAL --ppm=ADSB_SDR_PPM --lat=FEEDER_LAT --lon=FEEDER_LONG --quiet --db-file=/usr/local/share/tar1090/aircraft.csv.gz --db-file-lt --write-json=/run/readsb --json-trace-interval=15 --json-reliable=1 --net --net-heartbeat=35 --net-bi-port=30004,30104 --net-bo-port=30005 --net-beast-reduce-out-port=30006 --net-beast-reduce-interval=0.5 --net-api-port 30152 --net-connector=feed.adsb.fi,30004,beast_reduce_plus_out --net-connector=in.adsb.lol,30004,beast_reduce_plus_out --net-connector=feed.airplanes.live,30004,beast_reduce_plus_out --net-connector=feed.planespotters.net,30004,beast_reduce_plus_out --net-connector=feed.theairtraffic.com,30004,beast_reduce_plus_out --net-connector=data.avdelphi.com,24999,beast_reduce_plus_out --net-connector=skyfeed.hpradar.com,30004,beast_reduce_plus_out --net-connector=dati.flyitalyadsb.com,4905,beast_reduce_plus_out --net-connector=dump978,30978,uat_in"
   dump978:
     image: ghcr.io/jquagga/u978:main
     container_name: dump978
@@ -71,12 +71,25 @@ services:
     #  - UPA_NOTIFY_URL=
     #  - UPA_PADATABASE_URL=
     #  - UPA_JSON_URL=http://ultrafeeder:30152/?all_with_pos
+  utar1090:
+    image: ghcr.io/jquagga/utar1090:main
+    restart: unless-stopped
+    container_name: tar1090
+    depends_on:
+      - ultrafeeder
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - readsb:/srv/data:ro
+      - caddy_data:/data
+      - caddy_config:/config
   watchtower:
     image: containrrr/watchtower:latest
     container_name: watchtower
     restart: always
-    depends_on:
-      - ultrafeeder
     environment:
       - TZ=${FEEDER_TZ}
       - WATCHTOWER_CLEANUP=true
@@ -84,3 +97,13 @@ services:
       - WATCHTOWER_ROLLING_RESTART=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  readsb:
+    driver: local
+    driver_opts:
+      type: "tmpfs"
+      device: "tmpfs"
+      o: "size=256m,uid=65532"
+  caddy_data:
+  caddy_config:
