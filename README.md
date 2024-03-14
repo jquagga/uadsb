@@ -6,20 +6,21 @@ uADSB are a series of minimally privileged docker containers for obtaining ADSB 
 - [μmlat](https://github.com/jquagga/umlat) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/jquagga/umlat/badge)](https://securityscorecards.dev/viewer/?uri=github.com/jquagga/umlat)
 - [μpa](https://github.com/jquagga/upa) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/jquagga/upa/badge)](https://securityscorecards.dev/viewer/?uri=github.com/jquagga/upa)
 - [μpiaware](https://github.com/jquagga/upiaware) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/jquagga/upiaware/badge)](https://securityscorecards.dev/viewer/?uri=github.com/jquagga/upiaware)
+- [μtar1090](https://github.com/jquagga/utar1090) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/jquagga/upiaware/badge)](https://securityscorecards.dev/viewer/?uri=github.com/jquagga/utar1090)
 
 ## Build information
 
-To the extent that is practical, these Docker images attempt to provide functionality on par with the [SDR Enthusiasts ultrafeeder](https://github.com/sdr-enthusiasts/docker-adsb-ultrafeeder), however are focused on minimizing the number of services and permissions required. All of the containers other than piaware are built on [distroless nonroot](https://github.com/GoogleContainerTools/distroless). There is no init system in any container and a one process per container model is followed.
-
-Persistent storage was also intentionally omitted with the rationale that the user of this stack would view the data on upstream sources. So for example tar1090 isn't included, but you can go to my.adsb.lol and see a view of what your local feeder is hearing. upa checks to see what is flying by and sends notifications but there is no persistent data storage on the small pc running this service. That said, you can (and I sometimes do) open the beast out port on this stack and attach the upstream ultrafeeder running on a desktop to it. Then you have all of the graphs, tar1090, etc.
+To the extent that is practical, these Docker images attempt to provide functionality on par with the [SDR Enthusiasts ultrafeeder](https://github.com/sdr-enthusiasts/docker-adsb-ultrafeeder), however are focused on minimizing the number of services and permissions required. All of the containers other than piaware and tar1090 are built on [distroless nonroot](https://github.com/GoogleContainerTools/distroless). There is no init system in any container and a one process per container model is followed (as much as practial).  And all containers run as user 65532.
 
 ## Usage
 
 With the assumption you're already running the sdr-enthusiasts stack, the `build-docker-compose.sh` included in this repository will build a template of a docker-compose.yml with the same settings provided you copy the `.env` file to the same directory to build.
 
+You'll also probably need to tinker with the Caddyfile to at a minimum, set the ip address of your device.  
+
 ## Todo
 
-- 978 isn't set up just yet however the intent is to support that SOON.  
+- 978 isn't tested at this point - there's tmpl file there but I don't have the dongle set up locally to confirm it works.
 - Documentation is never enough.
 
 ## Contributing
