@@ -22,5 +22,6 @@ sed -i "s/FEEDER_LAT/$FEEDER_LAT/g" "docker-compose.yml"
 sed -i "s/FEEDER_LONG/$FEEDER_LONG/g" "docker-compose.yml"
 sed -i "s/FEEDER_ALT_M/$FEEDER_ALT_M/g" "docker-compose.yml"
 sed -i "s/ULTRAFEEDER_UUID/$ULTRAFEEDER_UUID/g" "docker-compose.yml"
+sed -i "s/FEEDER_NAME/$FEEDER_NAME/g" "docker-compose.yml"
 
 sed -i "s/PIAWARE_FEEDER_ID/$PIAWARE_FEEDER_ID/g" "piaware.conf"

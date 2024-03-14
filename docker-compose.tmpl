@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     depends_on:
       - ultrafeeder
-    command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server feed.adsb.fi:31090 --uuid ULTRAFEEDER_UUID --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
+    command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server feed.adsb.fi:31090 --uuid ULTRAFEEDER_UUID --user FEEDER_NAME --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
   mlat-adsb-lol:
     image: ghcr.io/jquagga/umlat:main
     container_name: umlat-adsb-lol
@@ -28,7 +28,7 @@ services:
     restart: unless-stopped
     depends_on:
       - ultrafeeder
-    command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server in.adsb.lol:31090 --uuid ULTRAFEEDER_UUID --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
+    command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server in.adsb.lol:31090 --uuid ULTRAFEEDER_UUID --user FEEDER_NAME --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
   mlat-airplanes-live:
     image: ghcr.io/jquagga/umlat:main
     container_name: umlat-airplanes-live
@@ -36,7 +36,7 @@ services:
     restart: unless-stopped
     depends_on:
       - ultrafeeder
-    command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server feed.airplanes.live:31090 --uuid ULTRAFEEDER_UUID --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
+    command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server feed.airplanes.live:31090 --uuid ULTRAFEEDER_UUID --user FEEDER_NAME --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
   mlat-planespotters:
     image: ghcr.io/jquagga/umlat:main
     container_name: umlat-planespotters
@@ -44,7 +44,7 @@ services:
     restart: unless-stopped
     depends_on:
       - ultrafeeder
-    command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server mlat.planespotters.net:31090 --uuid ULTRAFEEDER_UUID --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
+    command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server mlat.planespotters.net:31090 --uuid ULTRAFEEDER_UUID --user FEEDER_NAME --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
   piaware:
     image: ghcr.io/jquagga/upiaware:main
     container_name: piaware
