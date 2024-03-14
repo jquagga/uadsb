@@ -1,3 +1,4 @@
 docker-compose.yml
 piaware.conf
 .env
+uuid
