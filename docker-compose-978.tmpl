@@ -68,9 +68,9 @@ services:
     restart: unless-stopped
     depends_on:
       - ultrafeeder
-    #environment:
-    #  - UPA_NOTIFY_URL=
-    #  - UPA_PADATABASE_URL=
+    environment:
+      - UPA_NOTIFY_URL=${UPA_NOTIFY_URL}
+      - UPA_PADATABASE_URL=${UPA_PADATABASE_URL}
     #  - UPA_JSON_URL=http://ultrafeeder:30152/?all_with_pos
   utar1090:
     image: ghcr.io/jquagga/utar1090:main
