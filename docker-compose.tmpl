@@ -90,11 +90,13 @@ services:
   watchtower:
     image: containrrr/watchtower:latest
     container_name: watchtower
+    depends_on:
+      - ultrafeeder
     restart: always
     environment:
-      - TZ=${FEEDER_TZ}
       - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_POLL_INTERVAL=86400
+      - WATCHTOWER_POLL_INTERVAL=21600 # 6 hours
+      - WATCHTOWER_INCLUDE_RESTARTING=true # This restarts containers in "restarting" status AKA broken. Watchtower already restarts normal containers.
       - WATCHTOWER_ROLLING_RESTART=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
