@@ -16,7 +16,7 @@
     "automerge": true
   },
   "docker-compose": {
-    "enabled": true,
+    "enabled": false,
     "digest": {
       "enabled": false
     }
