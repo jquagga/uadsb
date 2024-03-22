@@ -1,6 +1,6 @@
 # μADSB
 
-uADSB are a series of minimally privileged docker containers for obtaining ADSB radio signals from airplanes via a SDR and sharing with various services.
+uADSB is a series of minimally privileged docker containers for obtaining ADSB radio signals from airplanes via a SDR and sharing with various services.
 
 - [μreadsb](https://github.com/jquagga/ureadsb) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/jquagga/ureadsb/badge)](https://securityscorecards.dev/viewer/?uri=github.com/jquagga/ureadsb)
 - [μmlat](https://github.com/jquagga/umlat) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/jquagga/umlat/badge)](https://securityscorecards.dev/viewer/?uri=github.com/jquagga/umlat)
