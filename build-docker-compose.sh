@@ -4,13 +4,18 @@ git stash
 
 . ./.env
 
+# If enable 978 is set to anything, enable it
+if [ -n "${ENABLE_978}" ]; then
+	cp docker-compose-978.yml docker-compose.yml
+	cp piaware-978.conf piaware.conf
+fi
+
 #Put uuid in a file and then we can mount it in docker-compose for use
 if [ -n "${ULTRAFEEDER_UUID}" ]; then
 	echo "$ULTRAFEEDER_UUID" >uuid
 else
 	cat /proc/sys/kernel/random/uuid >uuid
 fi
-
 
 # Now we use sed to find/replace the .env variables into the docker commands
 sed -i "s/ADSB_SDR_GAIN/$ADSB_SDR_GAIN/g" "docker-compose.yml"
