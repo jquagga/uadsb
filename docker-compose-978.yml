@@ -87,14 +87,6 @@ services:
       - readsb:/srv/data:ro
       - caddy_data:/data
       - caddy_config:/config
-  utardaemon:
-    image: ghcr.io/jquagga/utardaemon:main
-    restart: unless-stopped
-    container_name: utardaemon
-    depends_on:
-      - utar1090
-    volumes:
-      - readsb:/run/readsb
   watchtower:
     image: containrrr/watchtower:latest
     container_name: watchtower

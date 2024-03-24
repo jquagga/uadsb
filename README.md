@@ -43,10 +43,11 @@ I would start by saying that none of these is intended to take away from the har
 
 ### Cons of μADSB (why you'd prefer ultrafeeder)
 
-- Presently, **only rtlsdrs are supported directly**. This actually matches ultrafeeder I believe but you can use other containers as you would with ultrafeeder to feed BEAST data into this stack.
-- **graphs1090 doesn't exist**. You can use prometheus / grafana if you configure it. One of the goals of this project was to be disk transient. When the stack shuts down, the ram disk is cleared and there isn't any persistant storage locally. As such, graphs1090 doesn't make the most sense here.
+- Presently, **only rtlsdrs are supported**. That may change but they are the most common sdrs used in ADSB and simpler to support.
+- **graphs1090 doesn't exist**. You can use prometheus / grafana if you configure it however
 - Many of the .env configuration options aren't supported by μADSB. The core is, however esoteric options require direct editing of the docker-compose.yml. I don't think that's a big deal, however worth noting.
 - mlathub doesn't exist. The mlat-clients return results directly to readsb so you get the results in tar1090
+- tar1090 doesn't run the tar1090.sh. So while the web interface looks identical, you won't have "chunks" so **you won't have a plane trail history prior to opening tar1090 in the browser.**
 
 ### Pros of μADSB
 
