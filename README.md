@@ -17,7 +17,7 @@ And while not part of the stack, you may also find these useful:
 ## An overview [^mermaid]
 
 ```mermaid
-flowchart  LR
+flowchart  TD
 antenna>Antenna]  -->|1090mhz|1090sdr
 antenna  -->|978mhz|978sdr
 1090sdr  -->readsb{readsb}
@@ -49,7 +49,7 @@ I would start by saying that none of these is intended to take away from the har
 - mlathub doesn't exist. The mlat-clients return results directly to readsb so you get the results in tar1090
 - tar1090 doesn't run the tar1090.sh. So while the web interface looks identical, you won't have "chunks" so **you won't have a plane trail history prior to opening tar1090 in the browser.**
 
-### Pros of μADSB (why you'd prefer ultrafeeder)
+### Pros of μADSB
 
 - Generally, **one process per container.**[^oneprocess] If it dies, docker just restarts it. No init system; no complicated health checks. Just a linear process.
 - All of the containers built on [distroless](https://github.com/GoogleContainerTools/distroless) and **all are non-root other than utar1090**.[^caddy]
