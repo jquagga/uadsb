@@ -1,6 +1,6 @@
 services:
   ultrafeeder:
-    image: ghcr.io/jquagga/ureadsb:main
+    image: ghcr.io/jquagga/ureadsb:main@sha256:595bfb648066c0995ad204580d4b426d8059605e2c1846e236eb3993864a350f
     container_name: ultrafeeder
     hostname: ultrafeeder
     restart: unless-stopped
@@ -14,7 +14,7 @@ services:
       - "/dev/bus/usb:/dev/bus/usb:rwm"
     command: "--device-type=rtlsdr --gain=ADSB_SDR_GAIN --device=ADSB_SDR_SERIAL --ppm=ADSB_SDR_PPM --lat=FEEDER_LAT --lon=FEEDER_LONG --quiet --uuid-file=/run/uuid --db-file=/usr/local/share/tar1090/aircraft.csv.gz --db-file-lt --write-json=/run/readsb --json-trace-interval=15 --json-reliable=1 --net --net-bi-port=30004,30104 --net-bo-port=30005 --net-beast-reduce-out-port=30006 --net-ro-interval-beast-reduce=0.12 --net-beast-reduce-interval=0.5 --net-api-port 30152 --net-connector=feed.adsb.fi,30004,beast_reduce_plus_out --net-connector=in.adsb.lol,30004,beast_reduce_plus_out --net-connector=feed.airplanes.live,30004,beast_reduce_plus_out --net-connector=feed.theairtraffic.com,30004,beast_reduce_plus_out --net-connector=data.avdelphi.com,24999,beast_reduce_plus_out --net-connector=skyfeed.hpradar.com,30004,beast_reduce_plus_out --net-connector=dati.flyitalyadsb.com,4905,beast_reduce_plus_out --net-connector=feed1.adsbexchange.com,30004,beast_reduce_plus_out"
   mlat-adsb-fi:
-    image: ghcr.io/jquagga/umlat:main
+    image: ghcr.io/jquagga/umlat:main@sha256:aa83fc1a2ef973a9bd23b4667e9a8931116a611358025854239b060288fa5b30
     container_name: umlat-adsb-fi
     hostname: umlat-adsb-fi
     restart: unless-stopped
@@ -22,7 +22,7 @@ services:
       - ultrafeeder
     command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server feed.adsb.fi:31090 --results beast,connect,ultrafeeder:30004 --uuid ULTRAFEEDER_UUID --user FEEDER_NAME --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
   mlat-adsb-lol:
-    image: ghcr.io/jquagga/umlat:main
+    image: ghcr.io/jquagga/umlat:main@sha256:aa83fc1a2ef973a9bd23b4667e9a8931116a611358025854239b060288fa5b30
     container_name: umlat-adsb-lol
     hostname: umlat-adsb-lol
     restart: unless-stopped
@@ -30,7 +30,7 @@ services:
       - ultrafeeder
     command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server in.adsb.lol:31090 --results beast,connect,ultrafeeder:30004 --uuid ULTRAFEEDER_UUID --user FEEDER_NAME --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
   mlat-airplanes-live:
-    image: ghcr.io/jquagga/umlat:main
+    image: ghcr.io/jquagga/umlat:main@sha256:aa83fc1a2ef973a9bd23b4667e9a8931116a611358025854239b060288fa5b30
     container_name: umlat-airplanes-live
     hostname: umlat-airplanes-live
     restart: unless-stopped
@@ -38,7 +38,7 @@ services:
       - ultrafeeder
     command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server feed.airplanes.live:31090 --results beast,connect,ultrafeeder:30004 --uuid ULTRAFEEDER_UUID --user FEEDER_NAME --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
   mlat-adsbex:
-    image: ghcr.io/jquagga/umlat:main
+    image: ghcr.io/jquagga/umlat:main@sha256:aa83fc1a2ef973a9bd23b4667e9a8931116a611358025854239b060288fa5b30
     container_name: umlat-adsbex
     hostname: umlat-adsbex
     restart: unless-stopped
@@ -46,7 +46,7 @@ services:
       - ultrafeeder
     command: "--privacy --input-type beast --input-connect ultrafeeder:30005 --server feed.adsbexchange.com:31090 --results beast,connect,ultrafeeder:30004 --uuid ULTRAFEEDER_UUID --user FEEDER_NAME --lat FEEDER_LAT --lon FEEDER_LONG --alt FEEDER_ALT_Mm"
   piaware:
-    image: ghcr.io/jquagga/upiaware:main
+    image: ghcr.io/jquagga/upiaware:main@sha256:624b764046b21c54da11233c69199ecf6d9aa3e0de3b88b9791fd507ec31ddae
     container_name: piaware
     restart: unless-stopped
     depends_on:
@@ -54,7 +54,7 @@ services:
     volumes:
       - /opt/adsb/piaware.conf:/etc/piaware.conf:ro
   upa:
-    image: ghcr.io/jquagga/upa:main
+    image: ghcr.io/jquagga/upa:main@sha256:6d470fb67966c073bb9523c7ee4a528a2d358717c82d5a958a55d2e16cc7a5d8
     container_name: upa
     hostname: upa
     restart: unless-stopped
@@ -65,7 +65,7 @@ services:
       - UPA_PADATABASE_URL=${UPA_PADATABASE_URL}
     #  - UPA_JSON_URL=http://ultrafeeder:30152/?all_with_pos
   utar1090:
-    image: ghcr.io/jquagga/utar1090:main
+    image: ghcr.io/jquagga/utar1090:main@sha256:67b9ee7f8d87de0055f96dceb64b16d16a6897d43591dafc266761271268f0bd
     restart: unless-stopped
     container_name: tar1090
     depends_on:
@@ -80,7 +80,7 @@ services:
       - caddy_data:/data
       - caddy_config:/config
   watchtower:
-    image: containrrr/watchtower:latest
+    image: containrrr/watchtower:latest@sha256:6dd50763bbd632a83cb154d5451700530d1e44200b268a4e9488fefdfcf2b038
     container_name: watchtower
     depends_on:
       - ultrafeeder
